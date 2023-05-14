@@ -8,6 +8,7 @@ const resultScreen = document.querySelector('.calc-typed');
 // initialize variables for the calculator operation and result
 let operation = '';
 let result = '';
+let lastButton = '';
 
 // add event listeners to all calculator buttons
 buttons.forEach((button) => {
@@ -20,7 +21,7 @@ buttons.forEach((button) => {
             result = '';
         } else if (buttonValue === '<') {
             // remove the last character from the operation screen
-            operation = operation.slice(0, -1);
+            operation = operation.slice(0,-1);
         } else if (buttonValue === '=') {
             // evaluate the current operation and display the result
             try {
@@ -28,9 +29,18 @@ buttons.forEach((button) => {
             } catch (error) {
                 result = 'Error';
             }
-        } else {
-            // add the button value to the operation screen
-            operation += buttonValue;
+        }
+        else {
+            if ((lastButton === "+" || lastButton === "-" || lastButton === "x" || lastButton === "/" || lastButton === "." || lastButton === "%") && (buttonValue=== "+" || buttonValue === "-" || buttonValue === "x" || buttonValue === "/" || buttonValue === "." || buttonValue ==="%")){
+                // Prevent operators and decimal points from being repeated
+                return;}
+
+
+
+                // add the button value to the operation screen
+                operation += buttonValue;
+                lastButton = buttonValue;
+
         }
 
         // update the operation and result screens
